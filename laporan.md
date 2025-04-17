@@ -183,10 +183,10 @@ Rekomendasi untuk produk "white hanging heart tlight holder":
 #### Cara Kerja
 1. **Input**: Matriks user-item dengan CustomerID sebagai baris, StockCode sebagai kolom, dan Quantity sebagai nilai.
 SVD:
-2. **Menguraikan matriks user-item menjadi tiga matriks**: ( U ), ( \Sigma ), dan ( V^T ).
-( U ): Representasi laten pelanggan.
-( \Sigma ): Nilai singular (bobot fitur laten).
-( V^T ): Representasi laten produk.
+2. **Menguraikan matriks user-item menjadi tiga matriks**: (𝑈), (Σ), dan (V^T).
+(𝑈): Representasi laten pelanggan.
+(Σ): Nilai singular (bobot fitur laten).
+(V^T): Representasi laten produk.
 Mengurangi dimensi ke 20 fitur laten untuk menangkap pola utama sambil mengurangi noise.
 3. **Cosine Similarity**:
 Menghitung kesamaan antar pelanggan berdasarkan vektor laten di ruang SVD.
