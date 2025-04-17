@@ -90,7 +90,6 @@ Berikut adalah semua variabel dalam dataset, termasuk yang tidak digunakan dalam
   - `CustomerID`: ~25% baris tidak memiliki nilai, dihapus karena penting untuk collaborative filtering.  
   - `Description`: Sedikit nilai hilang, dihapus untuk memastikan kualitas content-based filtering.  
 - **Transaksi Batal**: Sekitar 2% transaksi memiliki `InvoiceNo` yang dimulai dengan huruf 'C', menandakan pembatalan, dihapus untuk fokus pada pembelian valid.  
-- **Ukuran**: Dataset kecil (~7.5 MB), memungkinkan pemrosesan cepat tanpa kebutuhan sampling.  
 
 ### 3.5. Exploratory Data Analysis (EDA)
 - **Distribusi Produk**:  
@@ -101,9 +100,12 @@ Berikut adalah semua variabel dalam dataset, termasuk yang tidak digunakan dalam
   - Rata-rata pelanggan memiliki 3-5 transaksi, mencerminkan basis pelanggan yang beragam.  
 
 **Visualisasi**:  
-- **Gambar 1**: Distribusi produk terpopuler berdasarkan total kuantitas pembelian (*products.png*).  
-- **Gambar 2**: Distribusi jumlah pembelian per pelanggan, menunjukkan pola transaksi (*purchases_per_customer.png*).  
+- **Gambar 1**: Distribusi produk terpopuler berdasarkan total kuantitas pembelian.
+    ![products](https://github.com/user-attachments/assets/d829f449-dad9-4a59-846d-b4a5655d9f3d)
 
+- **Gambar 2**: Distribusi jumlah ![Uploading output.png…]()
+pembelian per pelanggan, menunjukkan pola transaksi.
+![pelanggan](https://github.com/user-attachments/assets/406916d6-646b-430d-b88d-29ea26bd479f)
 
 ## 4. Data Preparation
 
@@ -156,11 +158,7 @@ Berikut adalah semua variabel dalam dataset, termasuk yang tidak digunakan dalam
 1. **Input**: Matriks TF-IDF dari deskripsi produk, di mana setiap produk direpresentasikan sebagai vektor dalam ruang fitur kata.  
 2. **Perhitungan Cosine Similarity**:  
    - Menghitung sudut kosinus antara setiap pasangan vektor produk menggunakan rumus:  
-     \[
-     \text{cosine similarity}(A, B) = \frac{A \cdot B}{\|A\| \|B\|}
-     \]  
-     - \( A \cdot B \): Produk dot antara vektor \( A \) dan \( B \).  
-     - \( \|A\| \|B\| \): Norm Euclidean dari vektor \( A \) dan \( B \).  
+cosine similarity(A,B)= A*B/||A|| ||B||​ 
    - Menghasilkan matriks similarity di mana setiap elemen menunjukkan skor kesamaan (0 hingga 1) antar produk.  
 3. **Rekomendasi**:  
    - Untuk produk input (misalnya, berdasarkan `StockCode`), memilih 5 produk dengan skor cosine similarity tertinggi.  
@@ -223,9 +221,7 @@ Recall@5 mengukur proporsi item relevan yang berhasil muncul dalam daftar rekome
 
 ### Formula:
 
-[
-\text{Recall@5} = \frac{\text{Jumlah item relevan dalam top-5}}{\text{Total item relevan}}
-]
+Recall@5= Total item relevan / Jumlah item relevan dalam top-5
 
 ### Kriteria Relevansi
 - **Content-Based**: Produk dianggap relevan jika deskripsinya memiliki setidaknya satu kata yang sama dengan produk input.
