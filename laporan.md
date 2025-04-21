@@ -90,7 +90,6 @@ Berikut adalah semua variabel dalam dataset, termasuk yang tidak digunakan dalam
   - `CustomerID`: ~25% baris tidak memiliki nilai, dihapus karena penting untuk collaborative filtering.  
   - `Description`: Sedikit nilai hilang, dihapus untuk memastikan kualitas content-based filtering.  
 - **Transaksi Batal**: Sekitar 2% transaksi memiliki `InvoiceNo` yang dimulai dengan huruf 'C', menandakan pembatalan, dihapus untuk fokus pada pembelian valid.  
-- **Ukuran**: Dataset kecil (~7.5 MB), memungkinkan pemrosesan cepat tanpa kebutuhan sampling.  
 
 ### 3.5. Exploratory Data Analysis (EDA)
 - **Distribusi Produk**:  
@@ -101,9 +100,12 @@ Berikut adalah semua variabel dalam dataset, termasuk yang tidak digunakan dalam
   - Rata-rata pelanggan memiliki 3-5 transaksi, mencerminkan basis pelanggan yang beragam.  
 
 **Visualisasi**:  
-- **Gambar 1**: Distribusi produk terpopuler berdasarkan total kuantitas pembelian (*products.png*).  
-- **Gambar 2**: Distribusi jumlah pembelian per pelanggan, menunjukkan pola transaksi (*purchases_per_customer.png*).  
+- **Gambar 1**: Distribusi produk terpopuler berdasarkan total kuantitas pembelian.
+    ![products](https://github.com/user-attachments/assets/d829f449-dad9-4a59-846d-b4a5655d9f3d)
 
+- **Gambar 2**: Distribusi jumlah ![Uploading output.png…]()
+pembelian per pelanggan, menunjukkan pola transaksi.
+![pelanggan](https://github.com/user-attachments/assets/406916d6-646b-430d-b88d-29ea26bd479f)
 
 ## 4. Data Preparation
 
@@ -156,11 +158,7 @@ Berikut adalah semua variabel dalam dataset, termasuk yang tidak digunakan dalam
 1. **Input**: Matriks TF-IDF dari deskripsi produk, di mana setiap produk direpresentasikan sebagai vektor dalam ruang fitur kata.  
 2. **Perhitungan Cosine Similarity**:  
    - Menghitung sudut kosinus antara setiap pasangan vektor produk menggunakan rumus:  
-     \[
-     \text{cosine similarity}(A, B) = \frac{A \cdot B}{\|A\| \|B\|}
-     \]  
-     - \( A \cdot B \): Produk dot antara vektor \( A \) dan \( B \).  
-     - \( \|A\| \|B\| \): Norm Euclidean dari vektor \( A \) dan \( B \).  
+cosine similarity(A,B)= A*B/||A|| ||B||​ 
    - Menghasilkan matriks similarity di mana setiap elemen menunjukkan skor kesamaan (0 hingga 1) antar produk.  
 3. **Rekomendasi**:  
    - Untuk produk input (misalnya, berdasarkan `StockCode`), memilih 5 produk dengan skor cosine similarity tertinggi.  
@@ -170,13 +168,12 @@ Berikut adalah semua variabel dalam dataset, termasuk yang tidak digunakan dalam
 - **cosine_similarity**: Menggunakan implementasi default dari scikit-learn tanpa parameter tambahan.  
 
 #### Contoh Output
-Untuk produk dengan `StockCode` "85123A":  
-Rekomendasi untuk produk "white hanging heart tlight holder":
-- red hanging heart tlight holder
-- pink hanging heart tlight holder
-- cream heart tlight holder
-- zinc heart tlight holder
-- glass heart tlight holder
+Rekomendasi untuk produk 10002:
+1       groovy cactus inflatable
+2                   doggy rubber
+3          hearts wrapping tape 
+4    spots on red bookcover tape
+5       army camo bookcover tape
 
 ### 5.2. Collaborative Filtering
 #### Algoritma
@@ -185,10 +182,10 @@ Rekomendasi untuk produk "white hanging heart tlight holder":
 #### Cara Kerja
 1. **Input**: Matriks user-item dengan CustomerID sebagai baris, StockCode sebagai kolom, dan Quantity sebagai nilai.
 SVD:
-2. **Menguraikan matriks user-item menjadi tiga matriks**: ( U ), ( \Sigma ), dan ( V^T ).
-( U ): Representasi laten pelanggan.
-( \Sigma ): Nilai singular (bobot fitur laten).
-( V^T ): Representasi laten produk.
+2. **Menguraikan matriks user-item menjadi tiga matriks**: (𝑈), (Σ), dan (V^T).
+(𝑈): Representasi laten pelanggan.
+(Σ): Nilai singular (bobot fitur laten).
+(V^T): Representasi laten produk.
 Mengurangi dimensi ke 20 fitur laten untuk menangkap pola utama sambil mengurangi noise.
 3. **Cosine Similarity**:
 Menghitung kesamaan antar pelanggan berdasarkan vektor laten di ruang SVD.
@@ -206,13 +203,12 @@ Mengembalikan deskripsi produk sebagai output rekomendasi.
 - **n_iter=5**: Jumlah iterasi untuk konvergensi.
 - **cosine_similarity**: Default scikit-learn tanpa parameter tambahan.
 #### Contoh Output
-Untuk pelanggan dengan CustomerID "17850.0":
-Rekomendasi untuk pelanggan 17850.0:
-- jumbo bag red retrospot
-- lunch bag red retrospot
-- party bunting
-- set of 6 spice tins pantry design
-- pack of 72 retrospot cake cases
+Rekomendasi untuk pelanggan 12346.0:
+547                       red pudding spoon
+548                      blue pudding spoon
+1432    wooden heart christmas scandinavian
+1997         medium ceramic top storage jar
+1998         small ceramic top storage jar 
 
 ## 6. Evaluation
 ### 6.1. Metrik Evaluasi
@@ -223,9 +219,7 @@ Recall@5 mengukur proporsi item relevan yang berhasil muncul dalam daftar rekome
 
 ### Formula:
 
-[
-\text{Recall@5} = \frac{\text{Jumlah item relevan dalam top-5}}{\text{Total item relevan}}
-]
+Recall@5= Total item relevan / Jumlah item relevan dalam top-5
 
 ### Kriteria Relevansi
 - **Content-Based**: Produk dianggap relevan jika deskripsinya memiliki setidaknya satu kata yang sama dengan produk input.
