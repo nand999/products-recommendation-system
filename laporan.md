@@ -169,11 +169,11 @@ cosine similarity(A,B)= A*B/||A|| ||B||​
 
 #### Contoh Output
 Rekomendasi untuk produk 10002:
-1       groovy cactus inflatable
-2                   doggy rubber
-3          hearts wrapping tape 
-4    spots on red bookcover tape
-5       army camo bookcover tape
+1. groovy cactus inflatable
+2. doggy rubber
+3. hearts wrapping tape 
+4. spots on red bookcover tape
+5. army camo bookcover tape
 
 ### 5.2. Collaborative Filtering
 #### Algoritma
@@ -204,11 +204,11 @@ Mengembalikan deskripsi produk sebagai output rekomendasi.
 - **cosine_similarity**: Default scikit-learn tanpa parameter tambahan.
 #### Contoh Output
 Rekomendasi untuk pelanggan 12346.0:
-547                       red pudding spoon
-548                      blue pudding spoon
-1432    wooden heart christmas scandinavian
-1997         medium ceramic top storage jar
-1998         small ceramic top storage jar 
+1. red pudding spoon
+2. blue pudding spoon
+3. wooden heart christmas scandinavian
+4. medium ceramic top storage jar
+5. small ceramic top storage jar 
 
 ## 6. Evaluation
 ### 6.1. Metrik Evaluasi
